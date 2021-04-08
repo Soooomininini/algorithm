@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+char vect[20][20];
+int n;
+char a = 'A';
+void marummo() {
+	for (int t = 0; t < n; t++) {
+		//1st
+		for (int y = 0 + t; y < n - 1; y++) {
+			if (a > 'Z') a = 'A';
+			vect[y][n - 1 + t - y] = a++;
+		}
+		//2nd
+		for (int x = 0 + t; x < n - 1; x++) {
+			if (a > 'Z') a = 'A';
+			vect[x + n - 1 - t][x] = a++;
+		}
+		//3rd
+		for (int x = n - 1; x < 2 * (n - 1) - t; x++) {
+			if (a > 'Z') a = 'A';
+			vect[3 * (n - 1) - t - x][x] = a++;
+		}
+		//4th
+		for (int y = n - 1; y > 0 + t; y--) {
+			if (a > 'Z') a = 'A';
+			vect[y][y + n - 1 - t] = a++;
+		}
+	}
+	vect[n - 1][n - 1] = a;
+	
+}
+void print() {
+	for (int y = 0; y <= 2 * (n - 1); y++) {
+		for (int x = 0; x <= 2 * (n - 1); x++) {
+			if (vect[y][x] != '\0') cout << vect[y][x] << " ";
+			else cout << " ";
+		}
+		cout << endl;
+	}
+}
+int main() {
+	freopen("soomin.txt", "r", stdin);
+	cin >> n;
+	marummo();
+	print();
+	return 0;
+}
