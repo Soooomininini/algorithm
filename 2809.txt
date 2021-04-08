@@ -1,0 +1,74 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+int vect[1000];
+int n;
+int no;
+void yaksu() {
+	int x = 1;
+	int a = (int)sqrt(n);
+	while (1) {
+		if (x == a) {
+			if (n % x == 0) {
+				if (n / x == a) {
+					vect[no++] = a;
+					break;
+				}
+				else {
+					vect[no++] = x;
+					vect[no++] = n / x;
+					break;
+				}
+			}
+			else {
+				break;
+			}
+		}
+		if (n % x == 0) {
+			vect[no++] = x;
+			vect[no++] = n / x;
+		}
+		x++;
+	}
+}
+void quick(int start, int end1, int level) {
+	if (start >= end1) return;
+	if (start < 0 || end1 <0 || end1>no || start>no) return;
+
+	int y = start;
+	int x = end1;
+	int piv = start;
+
+	while (1) {
+		while (1) {
+			if (vect[y] > vect[piv]) break;
+			if (y >= end1) break;
+			y++;
+		}
+		while (1) {
+			if (vect[x] < vect[piv]) break;
+			if (x <= start) break;
+			x--;
+		}
+		if (y >= x) break;
+		swap(vect[y], vect[x]);
+	}
+	swap(vect[piv], vect[x]);
+	piv = x;
+
+	quick(start, piv - 1, level+1);
+	quick(piv + 1, end1, level+1);
+}
+void print() {
+	for (int x = 0; x < no; x++) {
+		cout << vect[x] << " ";
+	}
+}
+int main() {
+	freopen("soomin.txt", "r", stdin);
+	cin >> n;
+	yaksu();
+	quick(0, no - 1, 0);
+	print();
+	return 0;
+}
