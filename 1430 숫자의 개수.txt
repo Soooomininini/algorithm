@@ -1,0 +1,18 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int dat[10];
+int main(){
+	int a,b,c;
+	cin >> a>> b>> c;
+	int multi = a*b*c; 
+	string str= to_string(multi);  // 받은 숫자의 곱인 multi를 string으로 변환
+	int len= str.length();
+	for (int x=0; x<len; x++){
+		int index= str[x]-'0';  // string을 하나씩 쪼개서 int로 만들어서 dat에 담기
+		dat[index]++;
+	}
+	for (int x=0; x<10; x++){
+		cout << dat[x] << endl; //결과물 출력
+	}
+}
