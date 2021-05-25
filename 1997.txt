@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector <int> vect, path;
+int total;
+int d, k, flag;
+int calcu() {
+    int x = 2;
+    while (1) {
+        int value = vect[x - 1] + vect[x - 2];
+        vect.push_back(value);
+        if (x >= d) break;
+        x++;
+    }
+    return vect.back();
+}
+void fib(int n, int level) {
+    if (level == 2) {
+        total = calcu();
+        if (total != k) return;
+        else {
+            cout << vect[0] << endl << vect[1];
+            flag = 1;
+            return;
+        }
+    }
+
+    for (int x = 1; x <= k; x++) {
+        if (flag == 1) continue;
+        if (x < n) continue;
+        vect.push_back(x);
+        path.push_back(x);
+        fib(x, level + 1);
+        path.pop_back();
+        vect.erase(vect.begin()+1, vect.end());
+        int debug = 1;
+    }
+}
+int main() {
+    freopen("soomin.txt", "r", stdin);
+    //input
+    cin >> d >> k;
+
+    //recursive
+    fib(0, 0);
+    return 0;
+}
